@@ -13,9 +13,9 @@ public class BinaryTree<E extends Comparable<E>> {
 		_Node(E key) {
 			__key = key;
 		}
-		
+
 		public String toString() {
-			return __key + ""; 
+			return __key + "";
 		}
 	}
 
@@ -41,90 +41,93 @@ public class BinaryTree<E extends Comparable<E>> {
 		else
 			_insert(key, _root);
 	}
-	
-	private void _preOrder(_Node root, Operation o){
-		if(root == null)
+
+	private void _preOrder(_Node root, Operation o) {
+		if (root == null)
 			return;
 		o.perform(root);
 		_preOrder(root.__left, o);
-		_preOrder(root.__right, o);	
+		_preOrder(root.__right, o);
 	}
-	
+
 	public void preOrder(Operation operation) {
 		_preOrder(_root, operation);
 	}
-	
-	private void _postOrder(_Node root, Operation o){
-		if(root == null)
+
+	private void _postOrder(_Node root, Operation o) {
+		if (root == null)
 			return;
 		_postOrder(root.__left, o);
-		_postOrder(root.__right, o);	
+		_postOrder(root.__right, o);
 		o.perform(root);
 	}
-	
+
 	public void postOrder(Operation operation) {
 		_postOrder(_root, operation);
 	}
-	
-	private void _inOrder(_Node root, Operation o){
-		if(root == null)
+
+	private void _inOrder(_Node root, Operation o) {
+		if (root == null)
 			return;
 		_inOrder(root.__left, o);
 		o.perform(root);
-		_inOrder(root.__right, o);	
+		_inOrder(root.__right, o);
 	}
-	
+
 	public void inOrder(Operation operation) {
 		_inOrder(_root, operation);
 	}
 
-	private void _toStream(_Node root, ArrayList<E> s){
-		
-		if(root == null)
+	private void _toStream(_Node root, ArrayList<E> s) {
+
+		if (root == null)
 			return;
-		
+
 		_toStream(root.__left, s);
 		s.add(root.__key);
 		_toStream(root.__right, s);
 	}
-	
-	public Stream<E> stream(){
+
+	public Stream<E> stream() {
 		ArrayList<E> s = new ArrayList<>();
 		_toStream(_root, s);
 		return s.stream();
 	}
-	
+
 	public E[] toArray() {
 		return null;
-		//TODO
+		// TODO
 	}
-	
+
 	public E getMin() {
 		return null;
-		//TODO
+		// TODO
 	}
-	
+
 	public E getMax() {
 		return null;
-		//TODO
+		// TODO
 	}
-	
+
 	public int getSum() {
 		return 0;
-		//TODO
+		// TODO
 	}
-	
-	public boolean search(E key) {
+
+	private boolean _search(_Node root, E key) {
+		if (root != null) {
+			if (root.__key.equals(key))
+				return true;
+
+			if (root.__key.compareTo(key) < 0)
+				return _search(root.__left, key);
+			else
+				return _search(root.__left, key);
+		}
 		return false;
-		//TODO
 	}
-	
-	public 
+
+	public boolean search(E key) {
+		return _search(_root, key);
+	}
 }
-
-
-
-
-
-
-

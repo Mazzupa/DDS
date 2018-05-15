@@ -14,18 +14,20 @@ public class Main {
 			t.insert(r.nextInt(10));
 		}
 		
+		System.out.println(t.search(5));
+		
 		t.inOrder((x) -> System.out.println(x.toString()));
-		
-		o o = new o(7);
-		t.inOrder(o);
-		System.out.println("Trovato? " + o.result);
-		
-		int y = 5;
-		Predicate<Integer> search = (x) -> x.equals(y)? true :  false;
-		
-		System.out.println("Risultati trovati: " + t.stream()
-			.filter(search)
-			.count());
+//		
+//		o o = new o(7);
+//		t.inOrder(o);
+//		System.out.println("Trovato? " + o.result);
+//		
+//		int y = 5;
+//		Predicate<Integer> search = (x) -> x.equals(y)? true :  false;
+//		
+//		System.out.println("Risultati trovati: " + t.stream()
+//			.filter(search)
+//			.count());
 
 	}
 }
