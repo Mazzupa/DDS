@@ -3,7 +3,7 @@ package tree;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-public class BinaryTree<E extends Comparable<E>> {
+public class BinaryTree<E extends Comparable<? super E>> {
 
 	private class _Node {
 		private E __key;
@@ -94,9 +94,11 @@ public class BinaryTree<E extends Comparable<E>> {
 		return s.stream();
 	}
 
-	public E[] toArray() {
-		return null;
-		// TODO
+	public Object[] toArray() {
+		ArrayList<E> r = new ArrayList<>();
+		_toStream(_root, r);
+		
+		return r.toArray();
 	}
 
 	public E getMin() {
