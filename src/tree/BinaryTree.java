@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import javax.management.RuntimeErrorException;
+import sun.awt.www.content.audio.x_aiff;
 
 public class BinaryTree<E extends Comparable<? super E>> {
 
@@ -64,18 +64,6 @@ public class BinaryTree<E extends Comparable<? super E>> {
 			_insert(key, _root);
 	}
 
-	/**
-	 * Classe privata che implementa l'interfaccia funzionale Consumer per
-	 * permettere la stampa dei nodi
-	 */
-	private class _stampa implements Consumer<E> {
-
-		@Override
-		public void accept(E t) {
-			System.out.println(t.toString());
-		}
-	};
-
 	private void _preOrder(_Node root, Consumer<E> o) {
 		if (root == null)
 			return;
@@ -98,7 +86,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Pre ordine
 	 */
 	public void preOrder() {
-		preOrder(new _stampa());
+		preOrder((x)->System.out.println(x.toString()));
 	}
 
 	private void _postOrder(_Node root, Consumer<E> o) {
@@ -123,7 +111,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Post ordine
 	 */
 	public void postOrder() {
-		postOrder((new _stampa()));
+		postOrder((x)->System.out.println(x.toString()));
 	}
 
 	private void _inOrder(_Node root, Consumer<E> o) {
@@ -148,7 +136,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Post ordine
 	 */
 	public void inOrder() {
-		inOrder(new _stampa());
+		inOrder((x)->System.out.println(x.toString()));
 	}
 
 	private void _toStream(_Node root, ArrayList<E> s) {
