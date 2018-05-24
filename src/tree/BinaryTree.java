@@ -2,7 +2,7 @@
  * @author Mazzucchetti Patrick
  * @Matricola 1053212
  * 
- * Implementazione di una struttura dati dinamica ad alberi di ricerca binario
+ * Implementazione di una struttura dati dinamica ad albero di ricerca binario
  */
 
 package tree;
@@ -10,8 +10,6 @@ package tree;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-
-import sun.awt.www.content.audio.x_aiff;
 
 public class BinaryTree<E extends Comparable<? super E>> {
 
@@ -28,7 +26,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 		}
 
 		public String toString() {
-			return __key + "";
+			return __key.toString();
 		}
 	}
 
@@ -38,17 +36,16 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	private _Node _root;
 
 	private void _insert(E key, _Node root) {
-		if (key.compareTo(root.__key) > 0) {
-			if (root.__right == null)
-				root.__right = new _Node(key);
-			else
-				_insert(key, root.__right);
-		} else {
+		if (key.compareTo(root.__key) < 0)
 			if (root.__left == null)
 				root.__left = new _Node(key);
 			else
 				_insert(key, root.__left);
-		}
+
+		else if (root.__right == null)
+			root.__right = new _Node(key);
+		else
+			_insert(key, root.__right);
 	}
 
 	/**
@@ -86,7 +83,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Pre ordine
 	 */
 	public void preOrder() {
-		preOrder((x)->System.out.println(x.toString()));
+		preOrder((x) -> System.out.print(x.toString() + " "));
 	}
 
 	private void _postOrder(_Node root, Consumer<E> o) {
@@ -111,7 +108,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Post ordine
 	 */
 	public void postOrder() {
-		postOrder((x)->System.out.println(x.toString()));
+		postOrder((x) -> System.out.print(x.toString() + " "));
 	}
 
 	private void _inOrder(_Node root, Consumer<E> o) {
@@ -136,7 +133,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * Stampa dell'albero secondo il Post ordine
 	 */
 	public void inOrder() {
-		inOrder((x)->System.out.println(x.toString()));
+		inOrder((x) -> System.out.print(x.toString() + " "));
 	}
 
 	private void _toStream(_Node root, ArrayList<E> s) {
@@ -169,16 +166,16 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	}
 
 	private boolean _search(_Node root, E key) {
-		if (root != null) {
-			if (root.__key.equals(key))
-				return true;
-
-			if (root.__key.compareTo(key) < 0)
-				return _search(root.__left, key);
-			else
-				return _search(root.__left, key);
-		}
-		return false;
+		if(root == null)
+			return false;
+		
+		int comp = root.__key.compareTo(key);
+		if(comp == 0)
+			return true;
+		else if(comp < 0)
+			return _search(root.__right, key);
+		else
+			return _search(root.__left, key);
 	}
 
 	/**
@@ -191,6 +188,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 		return _search(_root, key);
 	}
 
+	/**TODO*/
 	/**
 	 * @param key
 	 *            Elemento da eliminare
@@ -198,7 +196,5 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	public void remove(E key) {
 		if (!search(key))
 			throw new RuntimeException("Elemento non presente");
-
 	}
-
 }

@@ -11,41 +11,48 @@ public class Main {
 
 		Random r = new Random();
 		
-		for (int i = 0; i < 50; i++) {
-			t.insert(r.nextInt(50));
+		//Riempio l'albero con valori casuali
+		for (int i = 0; i < 10; i++) {
+			t.insert(r.nextInt(10));
 		}
 		
-		t.inOrder((x) -> System.out.println(x.toString()));
+		//Stampa in ordine metodo 1
+		t.inOrder((x) -> System.out.print(x.toString() + " "));
 		
+		System.out.println();
 		
+		//Stampa in ordine metodo 2
+		t.inOrder();
 		
-//		System.out.println(t.search(5));
+		System.out.println();
 		
-//		o<Integer> o = new o<>(5);
-//		t.inOrder(o);
-//		System.out.println("Trovato? " + o.result);
-//		
-//		int y = 5;
-//		Predicate<Integer> search = (x) -> x.equals(y)? true :  false;
-//		
-//		System.out.println("Risultati trovati: " + t.stream()
-//			.filter(search)
-//			.count());
-//		
-//		Object[] a = t.toArray();
-//		
-//		for(Object i : a)
-//			System.out.println(i.toString());
+		int numDaTrovare = 5;
 		
+		//Ricerca metodo 1
+		System.out.println(t.search(numDaTrovare));
+
+		//Ricerca metodo 2
+		Esempio<Integer> c = new Esempio<>(numDaTrovare);
+		t.inOrder(c);
+		System.out.println("Trovato? " + c.result);
+		
+		//Ricerca metodo 3
+		int y = 5;
+		Predicate<Integer> search = (x) -> x.equals(y)? true :  false;
+		
+		//Con stream
+		System.out.println("Risultati trovati: " + t.stream()
+			.filter(search)
+			.count());
 	}
 }
 
-class o<E> implements Consumer<E>{
+class Esempio<E> implements Consumer<E>{
 
 	int obj;
 	boolean result = false;
 	
-	public o(int o) {
+	public Esempio(int o) {
 		obj = o;
 	}
 	
