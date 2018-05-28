@@ -136,33 +136,47 @@ public class BinaryTree<E extends Comparable<? super E>> {
 		inOrder((x) -> System.out.print(x.toString() + " "));
 	}
 
-	private void _toStream(_Node root, ArrayList<E> s) {
+	private void _toStream(_Node root, ArrayList<E> s, TipoVisita tipo) {
 
 		if (root == null)
 			return;
-
-		_toStream(root.__left, s);
-		s.add(root.__key);
-		_toStream(root.__right, s);
+		
+		if(tipo.equals(TipoVisita.IN_ORDER))
+			inOrder((x)->s.add(x));
+		
+		if(tipo.equals(TipoVisita.POST_ORDER))
+			postOrder((x)->s.add(x));
+		
+		if(tipo.equals(TipoVisita.PRE_ORDER))
+			preOrder((x)->s.add(x));
+		
 	}
 
 	/**
 	 * @return L'albero sotto forma di Stream
 	 */
-	public Stream<E> stream() {
+	public Stream<E> stream(TipoVisita tipo) {
 		ArrayList<E> s = new ArrayList<>();
-		_toStream(_root, s);
+		_toStream(_root, s, tipo);
 		return s.stream();
+	}
+	
+	public Stream<E> stream() {
+		return stream(TipoVisita.IN_ORDER);
 	}
 
 	/**
 	 * @return L'albero sotto forma di Array
 	 */
-	public Object[] toArray() {
+	public Object[] toArray(TipoVisita tipo) {
 		ArrayList<E> r = new ArrayList<>();
-		_toStream(_root, r);
+		_toStream(_root, r, tipo);
 
 		return r.toArray();
+	}
+	
+	public Object[] toArray(){
+		return toArray(TipoVisita.IN_ORDER);
 	}
 
 	private boolean _search(_Node root, E key) {
@@ -182,7 +196,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
 	 * 
 	 * @param key
 	 *            Elemento da cercare
-	 * @return true se key Ã¨ presente nell'albero, false altrimenti
+	 * @return true se key è presente nell'albero, false altrimenti
 	 */
 	public boolean search(E key) {
 		return _search(_root, key);
