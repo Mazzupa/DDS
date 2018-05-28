@@ -37,12 +37,9 @@ public class Main {
 		System.out.println("Trovato? " + c.result);
 		
 		//Ricerca metodo 3
-		int y = 5;
-		Predicate<Integer> search = (x) -> x.equals(y)? true :  false;
-		
 		//Con stream
 		System.out.println("Risultati trovati: " + t.stream()
-			.filter(search)
+			.filter((x) -> x.equals(numDaTrovare)? true :  false)
 			.count());
 	}
 }
