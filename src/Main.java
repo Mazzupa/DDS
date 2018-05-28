@@ -1,8 +1,8 @@
+package tree;
+
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-import tree.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class Main {
 		
 		//Riempio l'albero con valori casuali
 		for (int i = 0; i < 10; i++) {
-			t.insert(r.nextInt(10));
+			t.insert(r.nextInt(100));
 		}
 		
 		//Stampa in ordine metodo 1
@@ -32,7 +32,7 @@ public class Main {
 		System.out.println(t.search(numDaTrovare));
 
 		//Ricerca metodo 2
-		Esempio<Integer> c = new Esempio<>(numDaTrovare);
+		Cerca<Integer> c = new Cerca<>(numDaTrovare);
 		t.inOrder(c);
 		System.out.println("Trovato? " + c.result);
 		
@@ -41,15 +41,23 @@ public class Main {
 		System.out.println("Risultati trovati: " + t.stream()
 			.filter((x) -> x.equals(numDaTrovare)? true :  false)
 			.count());
+		
+		
+		
+		Max<Integer> max = new Max<>();
+		
+		t.inOrder(max);
+		
+		System.out.println(max.max);
 	}
 }
 
-class Esempio<E> implements Consumer<E>{
+class Cerca<E> implements Consumer<E>{
 
 	int obj;
 	boolean result = false;
 	
-	public Esempio(int o) {
+	public Cerca(int o) {
 		obj = o;
 	}
 	
@@ -58,6 +66,19 @@ class Esempio<E> implements Consumer<E>{
 		Integer x = Integer.parseInt(o.toString());
 		if(x.equals(obj))
 			result = true;
+			
+	}	
+}
+
+class Max<E> implements Consumer<E>{
+
+	int max = Integer.MIN_VALUE;
+
+	@Override
+	public void accept(E o) {
+		Integer x = Integer.parseInt(o.toString());
+		if(x.compareTo(max) > 0)
+			max = x;
 			
 	}	
 }
